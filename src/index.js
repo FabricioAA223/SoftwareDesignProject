@@ -7,7 +7,7 @@ import RegisteredUsers from './pages/registeredUsers/RegisteredUsers';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
+    {/* <App />  */}
     {/* <RegisteredMicroorganisms/>  */}
     <RegisteredUsers />
   </React.StrictMode>

@@ -10,27 +10,25 @@ import { getMicroorganismByfunctGroup } from '../../../storage/dataService';
 export default function FunctionalGroupAccordion(props) {
     const genders = getMicroorganismByfunctGroup(props.functionalGroup);
   return (
-    <Box>
-      <Accordion>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography variant='h5' ><b>{props.functionalGroup}</b></Typography>
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography variant='h5' ><b>{props.functionalGroup}</b></Typography>
 
-        </AccordionSummary>
-        <AccordionDetails sx={{borderTop:'1px black solid'}}>
-            {genders.map(gender => (
-                // <div>Soy el genero: {gender}</div>
-                <Box display={'flex'} margin={'10px auto'} justifyContent="space-between" alignItems="center">
-                    <Typography marginLeft={'50px'} variant="subtitle1" fontSize={'19px'} component="div">{gender.name}</Typography>
-                    <Button sx={{marginRight:'50px'}} variant='contained'>Eliminar</Button>
-                </Box>
-            ))}
-        </AccordionDetails>
-      </Accordion>
-    </Box>
+      </AccordionSummary>
+      <AccordionDetails sx={{borderTop:'1px black solid'}}>
+          {genders.map(gender => (
+              // <div>Soy el genero: {gender}</div>
+              <Box display={'flex'} margin={'10px 50px'} justifyContent="space-between" alignItems="center">
+                  <Typography  variant="subtitle1" fontSize={'19px'} component="div">{gender.name}</Typography>
+                  <Button variant='contained'>Eliminar</Button>
+              </Box>
+          ))}
+      </AccordionDetails>
+    </Accordion>
   )
 }
 
