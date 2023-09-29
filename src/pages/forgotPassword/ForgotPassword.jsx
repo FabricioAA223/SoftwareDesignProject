@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {getUsers}  from '../../storage/dataService';
 
 import { Container, Paper, Typography, TextField, Button, Box} from '@mui/material';
@@ -25,18 +25,22 @@ const styles = {
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
-  const [isValidEmail, setIsValidEmail] = useState(true); // Inicialmente asumimos que el correo es válido
+  const [isValidEmail, setIsValidEmail] = useState(true); // Se asume que el correo es válido para evitar el resaltado rojo al inicio jeje
 
+
+
+
+ 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    // Al cambiar el correo, volvemos a asumir que es válido (elimina el resaltado rojo)
+    // Al cambiar el correo, volvemos a asumir que es válido (elimina el resaltado rojo) hasta que se verifique you know badgyal
     setIsValidEmail(true);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Obtén la lista de usuarios del servicio de datos
+    // Se usa la lista de usuarios del servicio de datos de Fabricio AKA el Presi
     const users = getUsers();
 
     // Verifica si el correo ingresado coincide con alguno de los correos en la lista
@@ -49,7 +53,7 @@ const ForgotPassword = () => {
     } else {
       setIsValidEmail(true);
       console.log('Correo válido:', email);
-      // Realiza la lógica para enviar el correo electrónico
+      // Aqui va la lógica para enviar el correo electrónico
     }
   };
 
@@ -63,7 +67,9 @@ const ForgotPassword = () => {
           </Typography>
           <form onSubmit={handleSubmit} >
             <Box display={'flex'} >
-                <TextField                
+                <TextField 
+                required
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                 variant="outlined"
                 margin="normal"
                 fullWidth
