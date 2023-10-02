@@ -24,7 +24,7 @@ function LastStats(props) {
         <Table sx={{ minWidth: 650}} aria-label="simple table">
           <TableHead sx={{bgcolor:'#002060'}}>
             <TableRow>
-              <TableCell width={'50%'} align = 'center' sx={{fontSize:'20px', color:'white'}}><b>{props.month}</b></TableCell>
+              <TableCell width={'50%'} align = 'center' sx={{fontSize:'20px', color:'white'}}><b>{props.month.charAt(0).toUpperCase() + props.month.slice(1).toLowerCase()}</b></TableCell>
               <TableCell width={'50%'} align="right" sx={{fontSize:'20px', color:'white'}}><b>Conteos realizados: {reports.length}</b></TableCell>
             </TableRow>
           </TableHead>

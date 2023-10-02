@@ -9,7 +9,7 @@ function Stats() {
     const informesAgrupadosPorMes = dividePorMes();
 
   return (
-    <Box alignContent={'center'} textAlign={'center'} border={'1px grey solid'} width={'80%'} margin={'auto'} borderRadius={'20px'} bgcolor={'lightgrey'}>
+    <Box alignContent={'center'} textAlign={'center'} border={'1px grey solid'} width={'80%'} margin={'auto'} borderRadius={'20px'} bgcolor={'lightgrey'} padding={'20px 0'}>
         <Typography margin={'20px'} variant='h1' fontSize={'20px'}><b>Conteos realizados en los últimos siete días</b></Typography>
         <LastReports />
         <Typography margin={'60px auto 20px auto'} variant='h1' fontSize={'20px'}><b>Conteos realizados en los últimos seis meses</b></Typography>
