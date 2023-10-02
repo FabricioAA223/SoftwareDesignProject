@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Stats from './pages/stats/Stats'
+import App from './App';
+import RegisteredMicroorganisms from './pages/registeredMicroorganisms/RegisteredMicroorganisms';
+import RegisteredUsers from './pages/registeredUsers/RegisteredUsers';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Stats />
+    {/* <App />  */}
+    {/* <RegisteredMicroorganisms/>  */}
+    <RegisteredUsers />
   </React.StrictMode>
 );

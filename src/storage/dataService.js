@@ -1,3 +1,4 @@
+
 const microorganismsData = [
     {
       id: 1,
@@ -41,7 +42,7 @@ const usersData = [
         id: 1,
         username: 'usuario1',
         email: 'usuario1@example.com',
-        password : 'diosteama',
+        passwordHash: '$2b$10$T3OcAa6Ll8iTTZ5/jE6/.efW3a.Wqg3dDQK/tvdGqG72t0ha1K61K', // Contraseña hasheada
         rol: 'Estudiante',
     },
     {
@@ -237,4 +238,10 @@ const ReportsSevenDays =  [
     // Buscar el usuario por ID y devolverlo
     return usersData.find(user => user.id === id);
   }
+
+  export function authenticateUser(email, password) {
+    // Simula la lógica de autenticación en el servidor
+    const foundUser = usersData.find((user) => user.email === email && user.password === password);
   
+    return foundUser;
+  }
