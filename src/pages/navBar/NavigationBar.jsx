@@ -20,7 +20,7 @@ function NavigationBar({ isLandingPage }) {
     handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
   };
   return (
-    <AppBar position="static">
+    <AppBar position="static" >
       <Toolbar>
         <Typography variant="h6" component="div">
           {/*<img src="/logo.png" alt="Logo" style={{ marginRight: '16px' }} /> */}

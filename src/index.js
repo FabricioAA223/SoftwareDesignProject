@@ -19,7 +19,7 @@ root.render(
     <AuthProvider>
     <Router>
       <NavigationBar isLandingPage={false} />
-      <Login />
+      <ForgotPassword />
     </Router>
     </AuthProvider>
       </React.StrictMode>

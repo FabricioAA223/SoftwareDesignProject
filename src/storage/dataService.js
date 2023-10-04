@@ -99,3 +99,5 @@ const microorganismsData = [
   
     return foundUser;
   }
+
+export {usersData}
