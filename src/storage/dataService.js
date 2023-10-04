@@ -17,7 +17,7 @@ const microorganismsData = [
     },
     {
       id: 4,
-      name: 'Phytophthora infestans',
+      name: 'Phytophttime infestans',
       functionalGroup: 'Pseudohongos',
     },
     {
@@ -35,9 +35,9 @@ const microorganismsData = [
       name: 'Streptomyces coelicolor',
       functionalGroup: 'Actinomicetos',
     },
-    ];
+];
   
-    const usersData = [
+const usersData = [
     {
         id: 1,
         username: 'usuario1',
@@ -53,14 +53,150 @@ const microorganismsData = [
         rol: 'Encargado',
     },
     {
-        id: 2,
-        username: 'usuario2',
-        email: 'usuario2@example.com',
+        id: 3,
+        username: 'usuario3',
+        email: 'usuario3@example.com',
         password : 'diosteama',
         rol: 'Administrador',
     },
-  ];
+];
+
+const ReportsSevenDays =  [
+    {
+        id: 1,
+        date: '2023-09-29',
+        time:  '12:00:12',
+        link:'www.linkalreporte.com',
+    },
+    {
+      id: 2,
+        date: '2023-09-27',
+        time:  '09:00:12',
+        link:'www.linkalreporte.com',
+    },
+    {
+      id: 3,
+        date: '2023-09-25',
+        time:  '16:00:12',
+        link:'www.linkalreporte.com',
+    },
+]
+
+  const ReportsSemester =  [
+    {
+      id: 1,
+        date: '2023-09-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 2,
+        date: '2023-10-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 3,
+        date: '2023-08-25',
+        time:  '16:00:12',
+    },
+    {
+      id: 4,
+        date: '2023-07-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 5,
+        date: '2023-06-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 6,
+        date: '2023-12-25',
+        time:  '16:00:12',
+    },
+        {
+          id: 7,
+        date: '2023-11-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 8,
+        date: '2023-08-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 9,
+        date: '2023-09-25',
+        time:  '16:00:12',
+    },
+    {id: 10,
+        date: '2023-10-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 11,
+        date: '2023-07-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 12,
+        date: '2023-06-25',
+        time:  '16:00:12',
+    },
+    {
+      id: 13,
+        date: '2023-09-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 14,
+        date: '2023-08-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 15,
+        date: '2023-10-25',
+        time:  '16:00:12',
+    },
+    {
+      id: 16,
+        date: '2023-11-29',
+        time:  '12:00:12',
+    },
+    {
+      id: 17,
+        date: '2023-09-27',
+        time:  '09:00:12',
+    },
+    {
+      id: 18,
+        date: '2023-09-25',
+        time:  '16:00:12',
+    },
+  ]
+
+  export function dividePorMes() {
+    // Objeto para almacenar los informes agrupados por mes
+    const informesPorMes = {};
   
+    // Recorremos la lista de informes
+    for (const report of ReportsSemester) {
+      // Obtenemos la fecha del informe y extraemos el mes
+      const fecha = new Date(report.date);
+      const mes = fecha.toLocaleString('default', { month: 'long' });
+  
+      // Si el mes aún no está en el objeto, lo inicializamos como una lista vacía
+      if (!informesPorMes[mes]) {
+        informesPorMes[mes] = [];
+      }
+  
+      // Agregamos el informe al mes correspondiente
+      informesPorMes[mes].push(report);
+    }
+  
+    return informesPorMes;
+  }
+  
+
   // Funciones para obtener los datos
   export function getMicroorganisms() {
     // Puedes aplicar lógica adicional aquí si es necesario
@@ -88,6 +224,16 @@ const microorganismsData = [
     return usersData;
   }
   
+  export function getLastReports() {
+    // Puedes aplicar lógica adicional aquí si es necesario
+    return ReportsSevenDays;
+  }
+
+  export function getLastStats() {
+    // Puedes aplicar lógica adicional aquí si es necesario
+    return ReportsSemester;
+  }
+
   export function getUserById(id) {
     // Buscar el usuario por ID y devolverlo
     return usersData.find(user => user.id === id);

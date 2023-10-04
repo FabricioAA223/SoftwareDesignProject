@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,59 +9,67 @@ import { Button } from '@mui/material';
 import { getUsers } from '../../storage/dataService';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import React, { useState } from 'react';
 
-function createData(name, email, type) {
-  return { name, email, type};
-}
 
-const users = getUsers();
-
-const rows = users.map((user) => createData(user.username, user.email, user.rol));
+const usuarios = getUsers();
 
 export default function RegisteredUsers() {
-  const [type, setType] = React.useState('');
+  const [users, setUsers] = useState(usuarios);
 
-  const handleChange = (event) => {
-    setType(event.target.value);
+  const handleChange = (event, userId) => {
+    //TODO: Modificar el rol en la base de datos
+    const updatedUsers = users.map((user) => {
+      if (user.id === userId) {
+        return {...user , rol: event.target.value };
+      }
+      return user;
+    });
+    setUsers(updatedUsers);
   };
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
+    <TableContainer component={Paper} 
+		sx={{
+			
+			width:'90%',
+			display:'flex', 
+			margin: 'auto',
+			justifyContent:'center', 
+			alignItems:'center'
+  	 }}>
+      <Table sx={{ minWidth: 650}} aria-label="simple table">
+        <TableHead sx={{bgcolor:'#002060'}}>
           <TableRow>
-            <TableCell>Nombre de usuario</TableCell>
-            <TableCell align="left">Correo electrónico</TableCell>
-            <TableCell align="center">Tipo de usuario</TableCell>
-            <TableCell align="center">Gestionar usuario</TableCell>
+            <TableCell sx={{fontSize:'20px', color:'white'}}><b>Nombre de usuario</b></TableCell>
+            <TableCell align="left" sx={{fontSize:'20px', color:'white'}}><b>Correo electrónico</b></TableCell>
+            <TableCell align="center" sx={{fontSize:'20px', color:'white'}}><b>Tipo de usuario</b></TableCell>
+            <TableCell align="center" sx={{fontSize:'20px', color:'white'}}><b>Gestionar usuario</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {users.map((user) => (
             <TableRow
-              key={row.name}
+              key={user.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {user.username}
               </TableCell>
-              <TableCell align="left">{row.email}</TableCell>
+              <TableCell align="left">{user.email}</TableCell>
 
               <TableCell align="center">
-              <Select sx={{ m: 1, minWidth: 120 }}
-                value={type}
-                onChange={handleChange}
-                displayEmpty 
-                defaultValue={row.type}
-                inputProps={{ 'aria-label': 'Without label' }}
+              <Select sx={{minWidth: 120 }}
+                value={user.rol}
+                onChange={(e) => handleChange(e, user.id)}
                 >
-                <MenuItem value={10}>Estudiante</MenuItem>
-                <MenuItem value={20}>Encargado</MenuItem>
-                <MenuItem value={30}>Administrador</MenuItem>
+                <MenuItem value={"Estudiante"}>Estudiante</MenuItem>
+                <MenuItem value={"Encargado"}>Encargado</MenuItem>
+                <MenuItem value={"Administrador"}>Administrador</MenuItem>
               </Select>
               </TableCell>
 
-              <TableCell align="center"><Button variant='contained'>Eliminar</Button></TableCell>
+              <TableCell align="center"><Button variant='contained' sx={{bgcolor:'#002060'}}>Eliminar</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
