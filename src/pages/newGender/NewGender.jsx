@@ -97,7 +97,7 @@ export default function NewGender() {
                     justifyContent={'space-between'}
                     bgcolor={'white'}
                 >
-                    <img src={image.url} alt="Imagen seleccionada"/>
+                    <img src={image.url} alt="Imagen seleccionada" style={{maxHeight:'320px'}}/>
                     <Button variant='outlined' endIcon={<DeleteIcon />} size='large' sx={{mt:'10px' , fontSize:'18px', marginX:'auto'}} onClick={() => handleImageDelete(index)}>Eliminar</Button>
                 </Box>
             ))}

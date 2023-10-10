@@ -1,9 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
+import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Box } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
-import { useAuth } from '../../ContextAuthentication/AuthContext'; // Importa el contexto
-function NavigationBar({ isLandingPage }) {
-  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Usa el hook de autenticación para obtener el estado de inicio de sesión y la función para cambiarlo
+import { Outlet } from 'react-router-dom';
+// import { useAuth } from '../../ContextAuthentication/AuthContext'; // Importa el contexto
+export default function NavigationBar(){
+  // const { isLoggedIn, setIsLoggedIn } = useAuth(); // Usa el hook de autenticación para obtener el estado de inicio de sesión y la función para cambiarlo
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true); // Usa el hook de autenticación para obtener el estado de inicio de sesión y la función para cambiarlo
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuOpen = (event) => {
@@ -13,14 +15,15 @@ function NavigationBar({ isLandingPage }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleChangeCredentials = () => {
-    // Agrega aquí la lógica para cambiar las credenciales del usuario
-    // Por ejemplo, puedes abrir un cuadro de diálogo o navegar a una página de cambio de credenciales
-    console.log('Cambiar Credenciales');
-    handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
-  };
+  // const handleChangeCredentials = () => {
+  //   // Agrega aquí la lógica para cambiar las credenciales del usuario
+  //   // Por ejemplo, puedes abrir un cuadro de diálogo o navegar a una página de cambio de credenciales
+  //   console.log('Cambiar Credenciales');
+  //   handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
+  // };
   return (
-    <AppBar position="static">
+    <Box>
+      <AppBar>
       <Toolbar>
         <Typography variant="h6" component="div">
           {/*<img src="/logo.png" alt="Logo" style={{ marginRight: '16px' }} /> */}
@@ -28,23 +31,23 @@ function NavigationBar({ isLandingPage }) {
         </Typography>
 
         <div style={{ flex: 1 }} />
-          {isLoggedIn ? (
+        {isLoggedIn ? (
           <>
-              {/* Elementos de navegación */}
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                HOME
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                MANUAL
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                CONTEO
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                NUEVA ESPECIE
-              </Typography>
+            {/* Elementos de navegación */}
+            <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
+              HOME
+            </Typography>
+            <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
+              MANUAL
+            </Typography>
+            <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
+              CONTEO
+            </Typography>
+            <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
+              NUEVA ESPECIE
+            </Typography>
           </>
-        ) : null}
+        ):null}
 
         <div>
           <IconButton
@@ -67,13 +70,12 @@ function NavigationBar({ isLandingPage }) {
               <>
                 <MenuItem onClick={handleMenuClose}>Cambiar Credenciales</MenuItem>
               </>
-            )
-            }
+            )}
           </Menu>
         </div>
       </Toolbar>
     </AppBar>
+    <Outlet />
+    </Box>
   );
 }
-
-export default NavigationBar;
