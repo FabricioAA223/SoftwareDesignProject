@@ -4,7 +4,7 @@ import React from 'react';
 function Landing() {
   return (
     <div>
-      <Typography variant='h1'>Esto es la homepage</Typography>
+      <Typography variant='h1' mt={'50px'}>Esto es la homepage</Typography>
     </div>
   );
 }
