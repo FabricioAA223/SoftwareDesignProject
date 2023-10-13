@@ -28,17 +28,23 @@ export function AppRouter() {
             {user ? (
                 <>
                 <Route path="manuals" element={<Manuals />} />
-                <Route path="new_gender" element={<NewGender />} />
                 <Route path="new_count" element={<NewCount />} />
                 </>
             ): (
                 <>
                 <Route path="manuals" element={<Login />} />
-                <Route path="new_gender" element={<Login />} />
                 <Route path="new_count" element={<Login />} />
                 </>
             )}
-
+            {user && user.rol === 'Encargado'? (
+                <>
+                <Route path="new_gender" element={<NewGender />} />
+                </>
+            ): (
+                <>
+                <Route path="new_gender" element={<NotFoundPage />} />
+                </>
+            )}           
   
             {user && user.rol === 'Administrador' ? (
                 <>

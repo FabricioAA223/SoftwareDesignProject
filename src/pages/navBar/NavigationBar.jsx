@@ -54,9 +54,11 @@ export default function NavigationBar(){
             <Link to={'./new_count'}>
               <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>CONTEO</Button>
             </Link>
-            <Link to={'./new_gender'}>
-              <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>NUEVA ESPECIE</Button>
-            </Link>
+            {user.rol === "Encargado" || user.rol === "Administrador"? (
+              <Link to={'./new_gender'}>
+                <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>NUEVA ESPECIE</Button>
+              </Link>
+            ):null}
             {user.rol === "Administrador"? (
               <>
                 <Button
