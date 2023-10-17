@@ -42,7 +42,7 @@ const usersData = [
         id: 1,
         username: 'usuario1',
         email: 'usuario1@example.com',
-        passwordHash: '$2b$10$T3OcAa6Ll8iTTZ5/jE6/.efW3a.Wqg3dDQK/tvdGqG72t0ha1K61K', // Contraseña hasheada
+        password: '$2b$10$T3OcAa6Ll8iTTZ5/jE6/.efW3a.Wqg3dDQK/tvdGqG72t0ha1K61K', // Contraseña hasheada
         rol: 'Estudiante',
     },
     {
@@ -59,7 +59,7 @@ const usersData = [
         password : 'diosteama',
         rol: 'Administrador',
     },
-];
+]
 
 const ReportsSevenDays =  [
     {
@@ -173,6 +173,66 @@ const ReportsSevenDays =  [
         time:  '16:00:12',
     },
   ]
+
+const countsResult = [
+  {
+    nombre: 'Hongo_Fusarium oxysporum',
+    count: 23,
+  },
+  {
+    nombre: 'Hongo_Aspergillus niger',
+    count: 1005,
+  },
+  {
+    nombre: 'Hongo_Candida albicans',
+    count: 792,
+  },
+  {
+    nombre: 'Pseudohongo_Phytophttime infestans1',
+    count: 359,
+  },
+  {
+    nombre: 'Pseudohongo_Phytophttime infestans2',
+    count: 359,
+  },
+  {
+    nombre: 'Pseudohongo_Phytophttime infestans3',
+    count: 359,
+  },
+  {
+    nombre: 'Pseudohongo_Phytophttime infestans4',
+    count: 359,
+  },
+  {
+    nombre: 'Bacteria anaróbica_Clostridium botulinum',
+    count: 125,
+  },
+  {
+    nombre: 'Bacteria anaróbica_Escherichia coli',
+    count: 456,
+  },
+]
+
+export function getCountsResultsXFuntGroup(){
+    const countsXGroup = {};
+  
+    // Recorremos la lista de informes
+    for (const count of countsResult) {
+      // Obtenemos la fecha del informe y extraemos el mes
+      const arrayResult = count.nombre.split('_');
+      const funtGroup = arrayResult[0];
+  
+      // Si el mes aún no está en el objeto, lo inicializamos como una lista vacía
+      if (!countsXGroup[funtGroup]) {
+        countsXGroup[funtGroup] = [];
+      }
+  
+      // Agregamos el informe al mes correspondiente
+      countsXGroup[funtGroup].push({gender : arrayResult[1], count: count.count});
+    }
+  
+    return countsXGroup;
+}
 
   export function dividePorMes() {
     // Objeto para almacenar los informes agrupados por mes
