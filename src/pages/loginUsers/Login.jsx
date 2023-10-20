@@ -4,52 +4,84 @@ import { Container, Paper, Grid, TextField, Button, Link, Typography, IconButton
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import TECimagen from '../../assets/TECimagen.png';
+import { Navigate } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
 
 
 const Login = () => {
     const [error, setError] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    //const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
 
-
-    
+    const {login, user} = useUser();
 
     const handleSubmit = (event) => {
-        event.preventDefault();
-      
-        const users = getUsers();
-        const foundUser = users.find((user) => user.email === email && user.password === password);
-      
-        if (foundUser) {
-          setIsAuthenticated(true);
-          console.log('Usuario autenticado:', foundUser);
-        } else {
-          setIsAuthenticated(false);
-          setError(true); // Establece el estado de error en true 
-        
-          // Después de 3 segundos, restablece el estado de error a false fino
-          setTimeout(() => {
-            setError(false);
-          }, 3000);
-      
-          console.log('Usuario no autenticado');
-        }
-      };
-      const toggleShowPassword = () => {
-        // Cambia entre mostrar y ocultar la contraseña, promete?
-        setShowPassword(!showPassword);
-      };
+      event.preventDefault();
     
-      const handleInputChange = () => {
-        setError(false); // Establece el estado de error en false
-      };
-
+      const users = getUsers();
+      const foundUser = users.find((user) => user.email === email && user.password === password);
+    
+      if (foundUser) {
+        //setIsAuthenticated(true);
+        //console.log('Usuario autenticado:', foundUser);
+        localStorage.setItem('user', JSON.stringify(foundUser));
+        //console.log("Usuario codificado", JSON.stringify(foundUser))
+        login(foundUser);
+      } else {
+        //setIsAuthenticated(false);
+        setError(true); // Establece el estado de error en true 
       
+        // Después de 3 segundos, restablece el estado de error a false fino
+        setTimeout(() => {
+          setError(false);
+        }, 3000);
+    
+        console.log('Usuario no autenticado');
+      }
+    };
+
+    // -----------------------------------------------IMPLEMENTAR EL LOGIN CON LA BASE DE DATOS (POR AGREGAR) --------------------------------------------------------------------
+    // const login = async (username, password) => {
+    //   try {
+    //     const response = await fetch('/login', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({ username, password }),
+    //     });
+    
+    //     if (response.ok) {
+    //       const data = await response.json();
+    //       // Almacena el token JWT en el almacenamiento local o en el contexto.
+    //       localStorage.setItem('token', data.token);
+    //     } else {
+    //       // Manejo de errores de inicio de sesión.
+    //     }
+    //   } catch (error) {
+    //     // Manejo de errores de red.
+    //   }
+    // };
+    
+
+    const toggleShowPassword = () => {
+      // Cambia entre mostrar y ocultar la contraseña, promete?
+      setShowPassword(!showPassword);
+    };
+  
+    // const handleInputChange = () => {
+    //   setError(false); // Establece el estado de error en false
+    // };
+
+    
+    if (user) {
+      return <Navigate to="/"/>;
+    }
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh' }}>
             <Container component="main" maxWidth="xs">
                 <img src={TECimagen} alt="Logo" style={{ width: '100%', height: '100%' }} />
                 <Paper elevation={3} sx={{ padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -108,16 +140,15 @@ const Login = () => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            color="primary"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 3, mb: 2 ,bgcolor:'#002060'}}
                         >
                             Iniciar Sesión
                         </Button>
                     </form>
                     <Grid container>
                     <Grid item xs style={{ textAlign: 'center' }}>
-                        <Link href="#" variant="body2">
-                        ¿Olvidaste tu contraseña?
+                        <Link href="./forgot_password" variant="body2">
+                          ¿Olvidaste tu contraseña?
                         </Link>
                     </Grid>
                     </Grid>

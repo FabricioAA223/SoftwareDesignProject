@@ -42,7 +42,7 @@ export default function NewCount() {
       }
     };
   return (
-    <Box display={'flex'} margin={'20px auto'} alignContent={'center'} justifyContent={'center'} textAlign={'center'} >
+    <Box display={'flex'} mt={'80px'} mx={'auto'} alignContent={'center'} justifyContent={'center'} textAlign={'center'} >
         <Box width={'65%'}>
             <input
                 type="file"
@@ -53,13 +53,13 @@ export default function NewCount() {
             />
             <label htmlFor="image-upload">
                 <Button variant="contained" component="span" size='large' sx={{bgcolor:'#002060'}}>
-                Subir imagen
+                    Subir imagen
                 </Button>
             </label>
             {(
                 selectedImage && 
                 (
-                <Box width={'100%'} maxHeight={'750px'} border={'1px solid grey'} marginY={'20px'} bgcolor={'lightgray'} overflow={'auto'}>
+                <Box width={'100%'} maxHeight={'700px'} border={'1px solid grey'} marginY={'20px'} bgcolor={'lightgray'} overflow={'auto'}>
                     <Typography variant='h1' fontSize={'30px'} my={'10px'}>Imagen</Typography>
                     <Divider variant='middle' sx={{bgcolor:'black', my:'10px'}}></Divider>
                     <img src={selectedImage} alt="Imagen seleccionada" width={'100%'} height={'100%'}/>
@@ -68,7 +68,7 @@ export default function NewCount() {
             ) 
             ||
             (
-                <Box width={'100%'} height={'750px'} border={'1px solid black'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'}>
+                <Box width={'100%'} height={'700px'} border={'1px solid black'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'}>
                     <Typography variant='h1' fontSize={'30px'} my={'10px'}>Imagen</Typography>
                     <Divider variant='middle' sx={{bgcolor:'black', my:'10px'}}></Divider>
                 </Box>
@@ -91,7 +91,7 @@ export default function NewCount() {
                     (countsResult !=null) && 
                     (
                     <>
-                    <Box width={'100%'} maxHeight={'750px'} border={'1px solid grey'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'} overflow={'auto'}>
+                    <Box width={'100%'} maxHeight={'700px'} border={'1px solid grey'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'} overflow={'auto'}>
                         <Typography variant='h1' fontSize={'30px'} my={'10px'}>Resultados</Typography>
                         <Divider variant='middle' sx={{bgcolor:'black', my:'10px'}}></Divider>
                         {Object.keys(countsResult).map((funtGroup) => (
@@ -108,7 +108,7 @@ export default function NewCount() {
                 ) 
                 ||
                 (
-                    <Box width={'100%'} height={'750px'} border={'1px solid black'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'}>
+                    <Box width={'100%'} height={'700px'} border={'1px solid black'} borderRadius={'20px'} marginY={'20px'} bgcolor={'lightgray'}>
                         <Typography variant='h1' fontSize={'30px'} my={'10px'}>Resultados</Typography>
                         <Divider variant='middle' sx={{bgcolor:'black', my:'10px'}}></Divider>
                     </Box>

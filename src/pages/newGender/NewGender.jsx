@@ -36,8 +36,8 @@ export default function NewGender() {
   };
 
   return (
-    <Box margin={'auto'} alignContent={'center'} justifyContent={'center'} textAlign={'center'}>
-        <Typography variant='h1' fontSize={'35px'} m={'30px auto'}><b>Registrar un nuevo género</b></Typography>
+    <Box mt={'80px'} mx={'auto'} alignContent={'center'} justifyContent={'center'} textAlign={'center'}>
+        <Typography variant='h1' fontSize={'35px'} mb={'15px'}><b>Registrar un nuevo género</b></Typography>
         <Box display={'flex'} justifyContent={'space-between'} width={'50%'} m={'auto'} alignContent={'center'}>
             <TextField id="gender" label="Género del microorganismo" variant="outlined" sx={{width:'500px'}}/>
             <FormControl sx={{width:'300px'}}>
@@ -97,7 +97,7 @@ export default function NewGender() {
                     justifyContent={'space-between'}
                     bgcolor={'white'}
                 >
-                    <img src={image.url} alt="Imagen seleccionada"/>
+                    <img src={image.url} alt="Imagen seleccionada" style={{maxHeight:'320px'}}/>
                     <Button variant='outlined' endIcon={<DeleteIcon />} size='large' sx={{mt:'10px' , fontSize:'18px', marginX:'auto'}} onClick={() => handleImageDelete(index)}>Eliminar</Button>
                 </Box>
             ))}

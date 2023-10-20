@@ -42,7 +42,7 @@ const usersData = [
         id: 1,
         username: 'usuario1',
         email: 'usuario1@example.com',
-        password: '$2b$10$T3OcAa6Ll8iTTZ5/jE6/.efW3a.Wqg3dDQK/tvdGqG72t0ha1K61K', // Contraseña hasheada
+        password: 'diosteama', // Contraseña hasheada
         rol: 'Estudiante',
     },
     {

@@ -1,10 +1,14 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem } from '@mui/material';
-import { AccountCircle } from '@mui/icons-material';
-import { useAuth } from '../../ContextAuthentication/AuthContext'; // Importa el contexto
-function NavigationBar({ isLandingPage }) {
-  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Usa el hook de autenticación para obtener el estado de inicio de sesión y la función para cambiarlo
+import { AppBar, Toolbar, Menu, MenuItem, Box, Button} from '@mui/material';
+import { AccountCircle, ExpandMore } from '@mui/icons-material';
+import { Link, Outlet } from 'react-router-dom';
+import { useUser } from '../../context/UserContext';
+import LogoBlanco from '../../assets/logoTECBLANCO.png';
+export default function NavigationBar(){
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [adminAnchorEl, setAdminAnchorEl] = React.useState(null);
+
+  const {user, logout} = useUser()
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -13,67 +17,96 @@ function NavigationBar({ isLandingPage }) {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  const handleChangeCredentials = () => {
-    // Agrega aquí la lógica para cambiar las credenciales del usuario
-    // Por ejemplo, puedes abrir un cuadro de diálogo o navegar a una página de cambio de credenciales
-    console.log('Cambiar Credenciales');
-    handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
+
+  const handleMenuAdminOpen = (event) => {
+    setAdminAnchorEl(event.currentTarget);
   };
+
+  const handleMenuAdminClose = () => {
+    setAdminAnchorEl(null);
+  };
+  
+  const handleCerrarSesion = () => {
+    logout()
+    handleMenuClose();
+  };
+
+
+  // const handleChangeCredentials = () => {
+  //   // Agrega aquí la lógica para cambiar las credenciales del usuario
+  //   // Por ejemplo, puedes abrir un cuadro de diálogo o navegar a una página de cambio de credenciales
+  //   console.log('Cambiar Credenciales');
+  //   handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
+  // };
+
   return (
-    <AppBar position="static">
+    <Box>
+      <AppBar sx={{bgcolor:'#002060'}}>
       <Toolbar>
-        <Typography variant="h6" component="div">
-          {/*<img src="/logo.png" alt="Logo" style={{ marginRight: '16px' }} /> */}
-          Mi Aplicación
-        </Typography>
-
-        <div style={{ flex: 1 }} />
-          {isLoggedIn ? (
+        <Link to={'/'}>
+          <img src={LogoBlanco} alt="Logo" width='200px' style={{ marginRight: '16px'}} />
+        </Link>
+          {user ? (
           <>
-              {/* Elementos de navegación */}
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                HOME
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                MANUAL
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                CONTEO
-              </Typography>
-              <Typography variant="h6" style={{ marginRight: '16px', cursor: 'pointer' }}>
-                NUEVA ESPECIE
-              </Typography>
+            <Link to={'./manuals'}>
+              <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>MANUAL</Button>
+            </Link>
+            <Link to={'./new_count'}>
+              <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>CONTEO</Button>
+            </Link>
+            {user.rol === "Encargado" || user.rol === "Administrador"? (
+              <Link to={'./new_gender'}>
+                <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>NUEVA ESPECIE</Button>
+              </Link>
+            ):null}
+            {user.rol === "Administrador"? (
+              <>
+                <Button
+                  onClick={handleMenuAdminOpen}
+                  endIcon = {<ExpandMore sx={{ fontSize: '20px' }} />}
+                  sx={{ mx: '10px', color: 'white', fontSize: '20px' }}>
+                  ADMIN
+                </Button>
+                <Menu
+                  anchorEl={adminAnchorEl}
+                  open={Boolean(adminAnchorEl)}
+                  onClose={handleMenuAdminClose}
+                >
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_users'>Gestionar usuario</MenuItem>
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_microorganisms'>Gestionar microorganismos</MenuItem>
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/stats'>Reportes y estadísticas</MenuItem>
+                </Menu>
+              </>
+            ):null}
+            <Box sx={{flexGrow:1}} />
+                <Button
+                  sx={{mx:'10px', color:'white', fontSize:'20px'}}
+                  onClick={handleMenuOpen}
+                  color="inherit"
+                  startIcon={<AccountCircle sx={{fontSize:'40px'}}/>}
+                >
+                  {user.username}
+                </Button>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleCerrarSesion} component={Link} to='./'>Cerrar Sesión</MenuItem>
+                  <MenuItem onClick={handleMenuClose} component={Link} to='/change_credentials'>Cambiar Credenciales</MenuItem>
+                </Menu>
           </>
-        ) : null}
-
-        <div>
-          <IconButton
-            onClick={handleMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            {isLoggedIn ? (
-              <>
-                <MenuItem onClick={() => setIsLoggedIn(false)}>Cerrar Sesión</MenuItem>
-                <MenuItem onClick={() => setIsLoggedIn(false)}>Cambiar Credenciales</MenuItem>
-              </>
-            ) : (
-              <>
-                <MenuItem onClick={handleMenuClose}>Cambiar Credenciales</MenuItem>
-              </>
-            )
-            }
-          </Menu>
-        </div>
+          ):(
+            <>
+          <Box sx={{flexGrow:1}} />
+          <Link to={'/login'}>
+            <Button sx={{mx:'10px', color:'white', fontSize:'20px'}} color="primary" variant='contained'>Ingresar</Button>
+          </Link>
+          </>
+          )}
       </Toolbar>
     </AppBar>
+    <Outlet />
+    </Box>
   );
 }
-
-export default NavigationBar;
