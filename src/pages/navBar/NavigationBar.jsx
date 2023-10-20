@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Menu, MenuItem, Box, Button} from '@mui/material';
+import { AppBar, Toolbar, Menu, MenuItem, Box, Button} from '@mui/material';
 import { AccountCircle, ExpandMore } from '@mui/icons-material';
 import { Link, Outlet } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
@@ -46,7 +46,7 @@ export default function NavigationBar(){
         <Link to={'/'}>
           <img src={LogoBlanco} alt="Logo" width='200px' style={{ marginRight: '16px'}} />
         </Link>
-        {user ? (
+          {user ? (
           <>
             <Link to={'./manuals'}>
               <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>MANUAL</Button>
@@ -72,41 +72,38 @@ export default function NavigationBar(){
                   open={Boolean(adminAnchorEl)}
                   onClose={handleMenuAdminClose}
                 >
-
-                      <>
-                        <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_users'>Gestionar usuario</MenuItem>
-                        <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_microorganisms'>Gestionar microorganismos</MenuItem>
-                        <MenuItem onClick={handleMenuAdminClose} component={Link} to='/stats'>Reportes y estadísticas</MenuItem>
-                      </>
-                  </Menu>
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_users'>Gestionar usuario</MenuItem>
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/registered_microorganisms'>Gestionar microorganismos</MenuItem>
+                  <MenuItem onClick={handleMenuAdminClose} component={Link} to='/stats'>Reportes y estadísticas</MenuItem>
+                </Menu>
               </>
             ):null}
+            <Box sx={{flexGrow:1}} />
+                <Button
+                  sx={{mx:'10px', color:'white', fontSize:'20px'}}
+                  onClick={handleMenuOpen}
+                  color="inherit"
+                  startIcon={<AccountCircle sx={{fontSize:'40px'}}/>}
+                >
+                  {user.username}
+                </Button>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleCerrarSesion} component={Link} to='./'>Cerrar Sesión</MenuItem>
+                  <MenuItem onClick={handleMenuClose} component={Link} to='/change_credentials'>Cambiar Credenciales</MenuItem>
+                </Menu>
           </>
-        ):null}
-
-        <Box sx={{flexGrow:1}} />
-          <IconButton
-            onClick={handleMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle sx={{fontSize:'40px'}}/>
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
-            {user ? (
-              <>
-                <MenuItem onClick={handleCerrarSesion} component={Link} to='./'>Cerrar Sesión</MenuItem>
-                <MenuItem onClick={handleMenuClose} component={Link} to='/change_credentials'>Cambiar Credenciales</MenuItem>
-              </>
-            ) : (
-              <>
-                <MenuItem onClick={handleMenuClose} component={Link} to='/login'>Ingresar</MenuItem>
-              </>
-            )}
-          </Menu>
+          ):(
+            <>
+          <Box sx={{flexGrow:1}} />
+          <Link to={'/login'}>
+            <Button sx={{mx:'10px', color:'white', fontSize:'20px'}} color="primary" variant='contained'>Ingresar</Button>
+          </Link>
+          </>
+          )}
       </Toolbar>
     </AppBar>
     <Outlet />
