@@ -12,7 +12,7 @@ export default function FunctionalGroupAccordion(props) {
   return (
     <Accordion>
       <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={<ExpandMoreIcon sx={{color:'#002060'}}/>}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
@@ -24,7 +24,7 @@ export default function FunctionalGroupAccordion(props) {
               // <div>Soy el genero: {gender}</div>
               <Box display={'flex'} margin={'10px 50px'} justifyContent="space-between" alignItems="center">
                   <Typography  variant="subtitle1" fontSize={'19px'} component="div">{gender.name}</Typography>
-                  <Button variant='contained'>Eliminar</Button>
+                  <Button variant='contained' sx={{bgcolor:'#002060'}}>Eliminar</Button>
               </Box>
           ))}
       </AccordionDetails>

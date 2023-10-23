@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import React from 'react';
 import { getLastReports } from '../../../storage/dataService';
+import { Button } from '@mui/material';
 
 const reports = getLastReports();
 function LastReports() {
@@ -37,7 +38,7 @@ function LastReports() {
             >
               <TableCell component="th" scope="row">{report.date}</TableCell>
               <TableCell align="center">{report.time}</TableCell>
-              <TableCell align="center"><a href={report.link}>{report.link}</a></TableCell>
+              <TableCell align="center"><Button variant='contained' href={report.link} sx={{bgcolor:'#002060'}}>Reporte</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>

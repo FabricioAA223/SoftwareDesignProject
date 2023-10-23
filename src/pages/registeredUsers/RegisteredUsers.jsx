@@ -34,7 +34,8 @@ export default function RegisteredUsers() {
 			
 			width:'90%',
 			display:'flex', 
-			margin: 'auto',
+      mt: '80px',
+			mx: 'auto',
 			justifyContent:'center', 
 			alignItems:'center'
   	 }}>
