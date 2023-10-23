@@ -11,36 +11,36 @@ import { useUser } from '../../context/UserContext';
 const Login = () => {
     const [error, setError] = useState(false);
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [passwordd, setPassword] = useState('');
     //const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar contraseña
 
-    const {login, user} = useUser();
+    //const {login, user} = useUser();
 
-    const handleSubmit = (event) => {
-      event.preventDefault();
+    // const handleSubmit = (event) => {
+    //   event.preventDefault();
     
-      const users = getUsers();
-      const foundUser = users.find((user) => user.email === email && user.password === password);
+    //   const users = getUsers();
+    //   const foundUser = users.find((user) => user.email === email && user.password === password);
     
-      if (foundUser) {
-        //setIsAuthenticated(true);
-        //console.log('Usuario autenticado:', foundUser);
-        localStorage.setItem('user', JSON.stringify(foundUser));
-        //console.log("Usuario codificado", JSON.stringify(foundUser))
-        login(foundUser);
-      } else {
-        //setIsAuthenticated(false);
-        setError(true); // Establece el estado de error en true 
+    //   if (foundUser) {
+    //     //setIsAuthenticated(true);
+    //     //console.log('Usuario autenticado:', foundUser);
+    //     localStorage.setItem('user', JSON.stringify(foundUser));
+    //     //console.log("Usuario codificado", JSON.stringify(foundUser))
+    //     login(foundUser);
+    //   } else {
+    //     //setIsAuthenticated(false);
+    //     setError(true); // Establece el estado de error en true 
       
-        // Después de 3 segundos, restablece el estado de error a false fino
-        setTimeout(() => {
-          setError(false);
-        }, 3000);
+    //     // Después de 3 segundos, restablece el estado de error a false fino
+    //     setTimeout(() => {
+    //       setError(false);
+    //     }, 3000);
     
-        console.log('Usuario no autenticado');
-      }
-    };
+    //     console.log('Usuario no autenticado');
+    //   }
+    // };
 
     // -----------------------------------------------IMPLEMENTAR EL LOGIN CON LA BASE DE DATOS (POR AGREGAR) --------------------------------------------------------------------
     // const login = async (username, password) => {
@@ -70,15 +70,47 @@ const Login = () => {
       // Cambia entre mostrar y ocultar la contraseña, promete?
       setShowPassword(!showPassword);
     };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await fetch('http://localhost:5000/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, passwordd }),
+        });
+  
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem('token', data.token);
+          console.log("Token de usuario:");
+          console.log(data.token);
+          window.location.href = '/';
+          // La solicitud se realizó con éxito, puedes redirigir al usuario o realizar otras acciones.
+        } else {
+          console.log("Usuario no autenticado");
+          setError(true);
+           // Después de 3 segundos, restablece el estado de error a false fino
+          setTimeout(() => {
+          setError(false);
+        }, 3000)
+        }
+      } catch (error) {
+        console.error(error);
+        // Manejar errores de red u otros errores aquí si es necesario.
+      }
+    };
   
     // const handleInputChange = () => {
     //   setError(false); // Establece el estado de error en false
     // };
 
     
-    if (user) {
-      return <Navigate to="/"/>;
-    }
+  // if (user) {
+  //   return <Navigate to="/"/>;
+  // }
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '95vh' }}>
@@ -119,7 +151,7 @@ const Login = () => {
 
                             id="password"
                             autoComplete="current-password"
-                            value={password}
+                            value={passwordd}
                             onChange={(e) => setPassword(e.target.value)}
                             error={error} // Agrega la prop 'error' para cambiar el color
                             InputProps={{
