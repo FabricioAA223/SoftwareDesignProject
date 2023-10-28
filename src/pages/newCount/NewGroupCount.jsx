@@ -22,7 +22,7 @@ export default function NewGroupCount() {
         {
         state: {
           imagesResults,
-        },
+        }
         }
       );
     } else{

@@ -18,52 +18,50 @@ const tableCellStyle = {
     fontFamily:"Times New Roman"
 }
 
-
 function TableWithResults() {
     const [unit, setUnit] = useState('');
     const [factor, setFactor] = useState('');
     const [numMuestras, setNumMuestras] = useState(0);
 
     const isWideScreen = useMediaQuery('(min-width:1500px)');
-    var imagesResults = [];
     const location = useLocation();
-    if(location){
-        imagesResults = location.state;
-    }
+    const imagesResults = location.state;
 
-    const [results, setResults] = useState({});
+    const [results, setResults] = useState(null);
 
     // Calcula los resultados en el efecto
     useEffect(() => {
-        //console.log("Cantidad de imagenes: "+imagesResults.lenght);
         const updatedResults = {};
         var n = 0;
-        imagesResults.forEach((imageResults) => {
-            n += 1;
-            Object.keys(imageResults).forEach((functGroup) => {
-                if (!updatedResults[functGroup]) {
-                    updatedResults[functGroup] = [];
-                }
-                imageResults[functGroup].forEach((resultgender) => {
-                    if (!updatedResults[functGroup].some(
-                        (item) => item.gender === resultgender.gender
-                    )) {
-                        updatedResults[functGroup].push({
-                            gender: resultgender.gender, 
-                            count: resultgender.count});
+        var listConteos = imagesResults["imagesResults"];
+        if(Array.isArray(listConteos)){
+            listConteos.forEach((imageResults) => {
+                n += 1;
+                Object.keys(imageResults).forEach((functGroup) => {
+                    if (!updatedResults[functGroup]) {
+                        updatedResults[functGroup] = [];
                     }
-                    else{
-                        updatedResults[functGroup].forEach((resgender) =>{
-                            if(resgender.gender === resultgender.gender){
-                                resgender.count += resultgender.count;
-                            }
-                        })
-                    }
+                    imageResults[functGroup].forEach((resultgender) => {
+                        if (!updatedResults[functGroup].some(
+                            (item) => item.gender === resultgender.gender
+                        )) {
+                            updatedResults[functGroup].push({
+                                gender: resultgender.gender, 
+                                count: resultgender.count});
+                        }
+                        else{
+                            updatedResults[functGroup].forEach((resgender) =>{
+                                if(resgender.gender === resultgender.gender){
+                                    resgender.count += resultgender.count;
+                                }
+                            })
+                        }
+                    });
                 });
             });
-        });
-        setNumMuestras(n);
-        setResults(updatedResults);
+            setNumMuestras(n);
+            setResults(updatedResults);
+        }
     }, [imagesResults]);
 
     const [functGroup, setFunctGroup] = useState('');
