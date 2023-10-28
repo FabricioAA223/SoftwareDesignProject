@@ -3,6 +3,7 @@ import { Box, Typography } from '@mui/material';
 
 const containerStyle = {
   position: 'relative',
+  marginTop:'80px'
 };
 
 const box1Style = {

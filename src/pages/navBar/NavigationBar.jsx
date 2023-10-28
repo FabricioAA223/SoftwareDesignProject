@@ -5,39 +5,40 @@ import { Link, Outlet } from 'react-router-dom';
 import { useUser } from '../../context/UserContext';
 import LogoBlanco from '../../assets/logoTECBLANCO.png';
 export default function NavigationBar(){
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [adminAnchorEl, setAdminAnchorEl] = React.useState(null);
-
   const {user, logout} = useUser()
 
+  //>>>>>>>>>>>>>>>>>>>>Handles para el menu del usuario (cuenta)<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
+  //>>>>>>>>>>>>>>>>>>>>Handles para el menu de administrador<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const [adminAnchorEl, setAdminAnchorEl] = React.useState(null);
   const handleMenuAdminOpen = (event) => {
     setAdminAnchorEl(event.currentTarget);
   };
-
   const handleMenuAdminClose = () => {
     setAdminAnchorEl(null);
   };
+
+    //>>>>>>>>>>>>>>>>>>>>Handles para el menu de conteo<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+  const [countAnchorEl, setCountAnchorEl] = React.useState(null);
+    const handleMenuCountOpen = (event) => {
+      setCountAnchorEl(event.currentTarget);
+    };
+    const handleMenuCountClose = () => {
+      setCountAnchorEl(null);
+    };
+
   
   const handleCerrarSesion = () => {
     logout()
     handleMenuClose();
   };
-
-
-  // const handleChangeCredentials = () => {
-  //   // Agrega aquí la lógica para cambiar las credenciales del usuario
-  //   // Por ejemplo, puedes abrir un cuadro de diálogo o navegar a una página de cambio de credenciales
-  //   console.log('Cambiar Credenciales');
-  //   handleMenuClose(); // Cierra el menú después de hacer clic en "Cambiar Credenciales"
-  // };
 
   return (
     <Box>
@@ -51,12 +52,23 @@ export default function NavigationBar(){
             <Link to={'./manuals'}>
               <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>MANUAL</Button>
             </Link>
-            <Link to={'./new_count'}>
-              <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>CONTEO</Button>
-            </Link>
+            <Button
+              onClick={handleMenuCountOpen}
+              endIcon = {<ExpandMore sx={{ fontSize: '20px' }} />}
+              sx={{ mx: '10px', color: 'white', fontSize: '20px' }}>
+              CONTEO
+            </Button>
+            <Menu
+              anchorEl={countAnchorEl}
+              open={Boolean(countAnchorEl)}
+              onClose={handleMenuCountClose}
+            >
+              <MenuItem onClick={handleMenuCountClose} component={Link} to='/individual_count'>Individual</MenuItem>
+              <MenuItem onClick={handleMenuCountClose} component={Link} to='/group_count'>Grupal</MenuItem>
+            </Menu>
             {user.rol === "Encargado" || user.rol === "Administrador"? (
               <Link to={'./new_gender'}>
-                <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>NUEVA ESPECIE</Button>
+                <Button sx={{mx:'10px', color:'white', fontSize:'20px'}}>NUEVO GÉNERO</Button>
               </Link>
             ):null}
             {user.rol === "Administrador"? (

@@ -31,7 +31,7 @@ export default function Manuals() {
   const pdfUrl = 'URL_DEL_PDF'; // Reemplaza con la URL del PDF que deseas enlazar
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginTop:'100px' }}>
       <Box style={boxStyle}>
         <Typography variant='h1' fontSize={'24px'}> <b>Realizar un Conteo</b></Typography>
         <a href={pdfUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>

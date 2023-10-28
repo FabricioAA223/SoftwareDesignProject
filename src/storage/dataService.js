@@ -41,6 +41,7 @@ const usersData = [
     {
         id: 1,
         username: 'usuario1',
+        fullname: 'Pedro Fernadez Horeamuno',
         email: 'usuario1@example.com',
         password: 'diosteama', // Contraseña hasheada
         rol: 'Estudiante',
@@ -48,6 +49,7 @@ const usersData = [
     {
         id: 2,
         username: 'usuario2',
+        fullname: 'Alejandro Sanchez Perez',
         email: 'usuario2@example.com',
         password : 'diosteama',
         rol: 'Encargado',
@@ -55,6 +57,7 @@ const usersData = [
     {
         id: 3,
         username: 'usuario3',
+        fullname: 'Juan Bautista Lopez Aguinaldo',
         email: 'usuario3@example.com',
         password : 'diosteama',
         rol: 'Administrador',
@@ -181,35 +184,23 @@ const countsResult = [
   },
   {
     nombre: 'Hongo_Aspergillus niger',
-    count: 1005,
+    count: 45,
   },
   {
     nombre: 'Hongo_Candida albicans',
-    count: 792,
+    count: 12,
   },
   {
     nombre: 'Pseudohongo_Phytophttime infestans1',
-    count: 359,
-  },
-  {
-    nombre: 'Pseudohongo_Phytophttime infestans2',
-    count: 359,
-  },
-  {
-    nombre: 'Pseudohongo_Phytophttime infestans3',
-    count: 359,
-  },
-  {
-    nombre: 'Pseudohongo_Phytophttime infestans4',
-    count: 359,
+    count: 47,
   },
   {
     nombre: 'Bacteria anaróbica_Clostridium botulinum',
-    count: 125,
+    count: 96,
   },
   {
     nombre: 'Bacteria anaróbica_Escherichia coli',
-    count: 456,
+    count: 34,
   },
 ]
 

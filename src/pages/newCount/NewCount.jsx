@@ -2,12 +2,15 @@ import React, { useState , useEffect } from 'react';
 import { Box, Button, Divider, Typography} from '@mui/material';
 import ShowResults from './components/ShowResults';
 import { getCountsResultsXFuntGroup } from '../../storage/dataService';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewCount() {
     const [selectedImage, setSelectedImage] = useState(null);
     const [counted, setCounted] = useState(false);
     const [countsResult, setCountsResults] = useState(null);
     const [sumaTotal, setSumaTotal] = useState(0); // Usamos un estado para la suma total
+
+    const navigate = useNavigate();
 
 
     const handleMakeCount = () => {
@@ -16,6 +19,16 @@ export default function NewCount() {
         setCountsResults(results);
         setCounted(true);
       };
+
+      const handleSubmit = () => {
+        const imagesResults = [countsResult];
+        //const unit = 
+        navigate('/data_report', {
+        state: {
+            imagesResults,
+        },
+        });
+      }
       
       // Use un efecto para calcular la suma cuando countsResult se actualiza
       useEffect(() => {
@@ -73,10 +86,10 @@ export default function NewCount() {
                     <Divider variant='middle' sx={{bgcolor:'black', my:'10px'}}></Divider>
                 </Box>
             )} 
-
-            <Button variant="contained" component="span" size='large' disabled = {!counted} sx={{bgcolor:'#002060'}}>
+            <Button onClick={handleSubmit} variant="contained" component="span" size='large' disabled = {!counted} sx={{bgcolor:'#002060'}}>
                 Generar informe
             </Button>
+            
         </Box>
 
         <Box width={'3%'}></Box>
