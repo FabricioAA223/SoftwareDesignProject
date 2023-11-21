@@ -1,181 +1,12 @@
+import axios from 'axios';
 
-const microorganismsData = [
-    {
-      id: 1,
-      name: 'Aspergillus niger',
-      functionalGroup: 'Hongos',
-    },
-    {
-      id: 2,
-      name: 'Candida albicans',
-      functionalGroup: 'Hongos',
-    },
-    {
-      id: 3,
-      name: 'Fusarium oxysporum',
-      functionalGroup: 'Hongos',
-    },
-    {
-      id: 4,
-      name: 'Phytophttime infestans',
-      functionalGroup: 'Pseudohongos',
-    },
-    {
-      id: 5,
-      name: 'Clostridium botulinum',
-      functionalGroup: 'Bacterias anaerobicas',
-    },
-    {
-      id: 6,
-      name: 'Escherichia coli',
-      functionalGroup: 'Bacterias aerobicas',
-    },
-    {
-      id: 7,
-      name: 'Streptomyces coelicolor',
-      functionalGroup: 'Actinomicetos',
-    },
-];
+const microorganismsData = getMicroorganisms();
   
-const usersData = [
-    {
-        id: 1,
-        username: 'usuario1',
-        fullname: 'Pedro Fernadez Horeamuno',
-        email: 'usuario1@example.com',
-        password: 'diosteama', // Contraseña hasheada
-        rol: 'Estudiante',
-    },
-    {
-        id: 2,
-        username: 'usuario2',
-        fullname: 'Alejandro Sanchez Perez',
-        email: 'usuario2@example.com',
-        password : 'diosteama',
-        rol: 'Encargado',
-    },
-    {
-        id: 3,
-        username: 'usuario3',
-        fullname: 'Juan Bautista Lopez Aguinaldo',
-        email: 'usuario3@example.com',
-        password : 'diosteama',
-        rol: 'Administrador',
-    },
-]
+const usersData = getUsers();
 
-const ReportsSevenDays =  [
-    {
-        id: 1,
-        date: '2023-09-29',
-        time:  '12:00:12',
-        link:'www.linkalreporte.com',
-    },
-    {
-      id: 2,
-        date: '2023-09-27',
-        time:  '09:00:12',
-        link:'www.linkalreporte.com',
-    },
-    {
-      id: 3,
-        date: '2023-09-25',
-        time:  '16:00:12',
-        link:'www.linkalreporte.com',
-    },
-]
+const ReportsSevenDays =  getLastReports();
 
-  const ReportsSemester =  [
-    {
-      id: 1,
-        date: '2023-09-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 2,
-        date: '2023-10-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 3,
-        date: '2023-08-25',
-        time:  '16:00:12',
-    },
-    {
-      id: 4,
-        date: '2023-07-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 5,
-        date: '2023-06-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 6,
-        date: '2023-12-25',
-        time:  '16:00:12',
-    },
-        {
-          id: 7,
-        date: '2023-11-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 8,
-        date: '2023-08-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 9,
-        date: '2023-09-25',
-        time:  '16:00:12',
-    },
-    {id: 10,
-        date: '2023-10-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 11,
-        date: '2023-07-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 12,
-        date: '2023-06-25',
-        time:  '16:00:12',
-    },
-    {
-      id: 13,
-        date: '2023-09-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 14,
-        date: '2023-08-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 15,
-        date: '2023-10-25',
-        time:  '16:00:12',
-    },
-    {
-      id: 16,
-        date: '2023-11-29',
-        time:  '12:00:12',
-    },
-    {
-      id: 17,
-        date: '2023-09-27',
-        time:  '09:00:12',
-    },
-    {
-      id: 18,
-        date: '2023-09-25',
-        time:  '16:00:12',
-    },
-  ]
+const ReportsSemester = getLastStats();
 
 const countsResult = [
   {
@@ -248,11 +79,38 @@ export function getCountsResultsXFuntGroup(){
   }
   
 
-  // Funciones para obtener los datos
-  export function getMicroorganisms() {
-    // Puedes aplicar lógica adicional aquí si es necesario
-    return microorganismsData;
+const getMicroorganisms = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/microorganisms/read');
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+    return data
+  } catch (error) {
+    console.error('Error al obtener los microorganismos:', error);
   }
+};
+  
+const deleteMicroorganism = async (microorganismId) => {
+  try {
+    const response = await axios.delete(`http://localhost:3000/microorganisms/delete/${microorganismId}`);
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al eliminar el microorganismo:', error);
+  }
+};
+
+const createConteo = async (count, microorganismo_id, reporte_id) => {
+  try {
+    const response = await axios.post(`http://localhost:3000/counts/create`, {count:count, microorganismo_id:microorganismo_id, reporte_id: reporte_id});
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al crear el conteo:', error);
+  }
+};
 
   export function getFunctionalGroups() {
     // Obtener todos los grupos funcionales únicos de los microorganismos
@@ -269,26 +127,108 @@ export function getCountsResultsXFuntGroup(){
     // Filtrar los microorganismos que pertenecen al grupo funcional dado
     return microorganismsData.filter(microorganism => microorganism.functionalGroup === functionalGroup);
   }
-  
-  export function getUsers() {
-    // Puedes aplicar lógica adicional aquí si es necesario
-    return usersData;
-  }
-  
-  export function getLastReports() {
-    // Puedes aplicar lógica adicional aquí si es necesario
-    return ReportsSevenDays;
-  }
 
-  export function getLastStats() {
-    // Puedes aplicar lógica adicional aquí si es necesario
-    return ReportsSemester;
-  }
+const createMicroorganism = async (name, functGroup) => {
+  try {
+    const response = await axios.post('http://localhost:3000/microorganisms/create', {nombre:name, functionalGroup:functGroup});
 
-  export function getUserById(id) {
-    // Buscar el usuario por ID y devolverlo
-    return usersData.find(user => user.id === id);
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al crear el microorganismo:', error);
   }
+};
+  
+const getUsers = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/users/getUsers');
+    return response
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+  }
+};
+
+const updateEmail = async (newEmail) => {
+  try {
+    const response = await axios.put('http://localhost:3000/users/updateEmail', { email: newEmail });
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al actualizar el email:', error);
+  }
+};
+
+const updatePassword = async (currentPassword, newPassword) => {
+  try {
+    const response = await axios.put('http://localhost:3000/users/updatePassword', { currentPassword, newPassword });
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al actualizar la contraseña:', error);
+  }
+};
+
+const deleteReport = async (reportId) => {
+  try {
+    const response = await axios.delete(`http://localhost:3000/reports/delete/${reportId}`);
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al eliminar el reporte:', error);
+  }
+};
+
+const createReport = async (fecha, hora) => {
+  try {
+    const response = await axios.post('http://localhost:3000/reports/create', {fecha:fecha, hora:hora});
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+
+  } catch (error) {
+    console.error('Error al crear el reporte:', error);
+  }
+};
+
+  
+const getLastReports = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/reports/read/lastWeek');
+
+    console.log(response.data); // Puedes hacer lo que necesites con la respuesta del servidor
+    return data
+  } catch (error) {
+    console.error('Error al obtener los reportes:', error);
+  }
+};
+
+const getLastStats = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/reports/read');
+    return response
+  } catch (error) {
+    console.error('Error al obtener datos:', error);
+  }
+};
+
+  const getUserById = async (userId) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/users/${userId}`);
+      
+      if (!response.data || response.data.length === 0) {
+        throw new Error('Usuario no encontrado');
+      }
+  
+      const user = response.data[0];
+      return user
+  
+    } catch (error) {
+      console.error('Error al obtener usuario:', error);
+    }
+  };
+
 
   export function authenticateUser(email, password) {
     // Simula la lógica de autenticación en el servidor
